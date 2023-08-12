@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { getAllCountry } from "@/services/apiService/country/country.service";
+import {
+  deleteCountry,
+  getAllCountry,
+} from "@/services/apiService/country/country.service";
+import Link from "next/link";
 
 export default function Country() {
   const [data, setData] = useState([]);
@@ -10,10 +14,25 @@ export default function Country() {
     };
     getData();
   }, []);
-  console.log(data);
+
+  const handleDelete = async (id) => {
+    const confirm = window.confirm("Are you sure to delete this country?");
+    if (confirm) {
+      try {
+        await deleteCountry(id);
+        const updatedData = data.filter((item) => item.id !== id);
+        setData(updatedData);
+      } catch (error) {
+        console.error("Error deleting country:", error);
+      }
+    }
+  };
   return (
     <div className=" container ">
       <h4 className=" text-center text-success mt-5 ">Country List</h4>
+      <a href="/country/create" className=" btn btn-primary mb-3">
+        Create Country
+      </a>
       <table className=" table text-center   table-bordered  table-responsive ">
         <thead>
           <tr>
@@ -25,11 +44,21 @@ export default function Country() {
         <tbody>
           {data.map((data, index) => (
             <tr key={index}>
-              <td>{data.id}</td>
+              <td>{index + 1}</td>
               <td>{data.countryName}</td>
               <td>
-                <button className="btn btn-success me-3 ">Edit</button>
-                <button className="btn btn-danger ">Delete</button>
+                <Link
+                  href={`country/edit/${data.id}`}
+                  className="btn btn-success me-3 "
+                >
+                  Edit
+                </Link>
+                <button
+                  className="btn btn-danger "
+                  onClick={() => handleDelete(data.id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
