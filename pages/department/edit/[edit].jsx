@@ -1,30 +1,24 @@
 import {
-  getCountry,
-  updateCountry,
-} from "@/services/apiService/country/country.service";
+  getdepartmentById,
+  updateDepartment,
+} from "@/services/apiService/department/department.service";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export default function editCountry() {
-  const [data, setData] = useState({});
+const editaDepartment = () => {
   const router = useRouter();
-
   const id = router.query.edit;
-
+  console.log(id);
+  const [data, setData] = useState({});
   useEffect(() => {
     const getData = async () => {
-      const getCounty = await getCountry(id);
-      setData(getCounty);
+      const data = await getdepartmentById(id);
+      setData(data);
     };
+    if (id != undefined) {
+      getData();
+    }
   }, [id]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const addedCountry = await updateCountry(id, data);
-    console.log(addedCountry);
-    router.push("/country"); // Use 'router' instead of 'useRouter'
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({
@@ -32,7 +26,12 @@ export default function editCountry() {
       [name]: value,
     });
   };
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const updatedepartment = await updateDepartment(id, data);
+    console.log(updatedepartment);
+    router.push("/department");
+  };
   return (
     <>
       <form
@@ -40,13 +39,13 @@ export default function editCountry() {
         className="p-4 border rounded shadow-sm"
       >
         <div className="mb-3">
-          <label className="form-label">Country Name:</label>
+          <label className="form-label">Department Name:</label>
           <input
             type="text"
-            value={data.countryName}
             className="form-control"
-            name="countryName"
-            onChange={handleChange}
+            name="departmentName"
+            onChange={(e) => handleChange(e)}
+            value={data.departmentName}
           />
         </div>
         <button type="submit" className="btn btn-primary">
@@ -55,4 +54,5 @@ export default function editCountry() {
       </form>
     </>
   );
-}
+};
+export default editaDepartment;

@@ -1,8 +1,8 @@
-import { apiUrl } from "@/environment/environment";
+const { apiUrl } = require("@/environment/environment");
 
-async function getAllCountry() {
+const getAllDepartment = async () => {
   try {
-    const response = await fetch(`${apiUrl}/Country`);
+    const response = await fetch(`${apiUrl}/Department`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -11,45 +11,44 @@ async function getAllCountry() {
     console.error("Error fetching data:", error);
     throw error;
   }
-}
-async function addCountry(data) {
+};
+const addDepartment = async (data) => {
   try {
-    const response = await fetch(`${apiUrl}/Country`, {
+    const response = await fetch(`${apiUrl}/Department`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
-
-    if (!response.ok) {
-      throw new Error(`Network response was not ok: `);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error adding country:", error);
-    throw error;
-  }
-}
-async function getCountry(id) {
-  try {
-    const response = await fetch(`${apiUrl}/Country/${id}`, { cors: true });
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-
     return await response.json();
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error;
   }
-}
+};
 
-async function updateCountry(id, data) {
-  console.log(id, data);
+const getdepartmentById = async (id) => {
+  console.log(id);
   try {
-    const response = await fetch(`${apiUrl}/Country/${id}`, {
+    const response = await fetch(`${apiUrl}/department/${id}`, { cors: true });
+    console.log(response);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};
+
+const updateDepartment = async (id, data) => {
+  try {
+    const response = await fetch(`${apiUrl}/department/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -67,23 +66,6 @@ async function updateCountry(id, data) {
     console.error("Error updating data:", error);
     throw error;
   }
-}
+};
 
-async function deleteCountry(id) {
-  try {
-    const response = await fetch(`${apiUrl}/Country/${id}`, {
-      method: "DELETE",
-    });
-
-    if (!response.ok) {
-      throw new Error(`Network response was not ok: `);
-    }
-
-    return true; // Return a success indicator or any relevant data
-  } catch (error) {
-    console.error("Error deleting country:", error);
-    throw error;
-  }
-}
-
-export { getAllCountry, addCountry, getCountry, updateCountry, deleteCountry };
+export { getAllDepartment, addDepartment, getdepartmentById, updateDepartment };

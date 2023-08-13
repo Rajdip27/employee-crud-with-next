@@ -19,7 +19,7 @@ export default function Country() {
     const confirm = window.confirm("Are you sure to delete this country?");
     if (confirm) {
       try {
-        await deleteCountry(id);
+        await id;
         const updatedData = data.filter((item) => item.id !== id);
         setData(updatedData);
       } catch (error) {
