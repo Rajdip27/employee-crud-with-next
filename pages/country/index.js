@@ -13,15 +13,16 @@ export default function Country() {
       setData(getCounty);
     };
     getData();
-  }, []);
+  }, [data]);
 
   const handleDelete = async (id) => {
     const confirm = window.confirm("Are you sure to delete this country?");
     if (confirm) {
       try {
-        await id;
-        const updatedData = data.filter((item) => item.id !== id);
-        setData(updatedData);
+        // await id;
+        // const updatedData = data.filter((item) => item.id !== id);
+        const updateData = await deleteCountry(id);
+        // setData(updateData);
       } catch (error) {
         console.error("Error deleting country:", error);
       }

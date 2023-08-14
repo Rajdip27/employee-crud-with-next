@@ -22,7 +22,10 @@ const createDepartment = () => {
   return (
     <>
       <div className=" container col-6  mt-5 ">
-        <form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm">
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          className="p-4 border rounded shadow-sm"
+        >
           <div className="mb-3">
             <label className="form-label">Department Name:</label>
             <input

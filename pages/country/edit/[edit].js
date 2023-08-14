@@ -16,6 +16,9 @@ export default function editCountry() {
       const getCounty = await getCountry(id);
       setData(getCounty);
     };
+    if (id != undefined) {
+      getData();
+    }
   }, [id]);
 
   const handleSubmit = async (e) => {

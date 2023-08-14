@@ -14,7 +14,7 @@ const State = () => {
   return (
     <div className=" container mt-5 mb-5 ">
       <h4 className=" text-center text-success mt-3 ">State List</h4>
-      <a href="/state/create" className=" btn btn-primary ">
+      <a href="/state/create" className=" btn btn-primary mb-3">
         Create State
       </a>
       <table className=" table  table-bordered  table-responsive ">
