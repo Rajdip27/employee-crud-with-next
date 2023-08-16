@@ -1,5 +1,6 @@
 import { getAllState } from "@/services/apiService/state/state.service";
 import { useState } from "react";
+import Link from "next/link";
 
 const State = () => {
   const [state, setState] = useState([]);
@@ -33,7 +34,12 @@ const State = () => {
               <td>{data.country.countryName}</td>
               <td>{data.stateName}</td>
               <td>
-                <button className="btn btn-success mx-3">Edit</button>
+                <Link
+                  href={`state/edit/${data.id}`}
+                  className="btn btn-success mx-3"
+                >
+                  Edit
+                </Link>
                 <button className="btn btn-danger">Delete</button>
               </td>
             </tr>

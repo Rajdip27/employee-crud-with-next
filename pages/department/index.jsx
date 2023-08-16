@@ -1,4 +1,7 @@
-import { getAllDepartment } from "@/services/apiService/department/department.service";
+import {
+  deleteDeparment,
+  getAllDepartment,
+} from "@/services/apiService/department/department.service";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -10,15 +13,31 @@ const getDepartment = () => {
       setDepartment(data);
     };
     getdata();
-  }, []);
-  // const handleDelete=async(id)={
+  }, [department]);
+  const handleDelete = async (id) => {
+    const confirm = window.confirm("Are you sure to delete this country?");
 
-  // }
+    if (confirm) {
+      try {
+        // await id;
+        // const updatedData = data.filter((item) => item.id !== id);
+        const updateData = await deleteDeparment(id);
+
+        // setData(updateData);
+      } catch (error) {
+        console.error("Error deleting country:", error);
+      }
+    }
+  };
 
   return (
     <div className=" container ">
       <h4 className=" text-center  text-success mb-5 mt-3 ">Department List</h4>
-      <table className=" table table-responsive table-bordered text-center  ">
+      <a href="/department/create" className=" btn btn-primary  ">
+        Create Department
+      </a>
+
+      <table className=" table table-responsive table-bordered text-center mt-3 ">
         <thead>
           <tr>
             <th>#</th>
@@ -39,7 +58,7 @@ const getDepartment = () => {
                   Edit
                 </Link>
                 <a
-                  // onClick={() => handleDelete(data.id)}
+                  onClick={() => handleDelete(data.id)}
                   className=" btn btn-danger "
                 >
                   Delete

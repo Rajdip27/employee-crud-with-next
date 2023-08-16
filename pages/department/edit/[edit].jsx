@@ -9,7 +9,7 @@ const editaDepartment = () => {
   const router = useRouter();
   const id = router.query.edit;
   console.log(id);
-  const [data, setData] = useState({});
+  const [data, setData] = useState("");
   useEffect(() => {
     const getData = async () => {
       const data = await getdepartmentById(id);
@@ -19,6 +19,7 @@ const editaDepartment = () => {
       getData();
     }
   }, [id]);
+  console.log(data);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({

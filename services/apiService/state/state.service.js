@@ -33,4 +33,17 @@ const addState = async (data) => {
     throw error;
   }
 };
-export { getAllState, addState };
+const getStateById = async (id) => {
+  try {
+    const response = await fetch(`${apiUrl}/state/${id}`, { cors: true });
+    console.log(response);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};
+export { getAllState, addState, getStateById };

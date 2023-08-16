@@ -68,4 +68,27 @@ const updateDepartment = async (id, data) => {
   }
 };
 
-export { getAllDepartment, addDepartment, getdepartmentById, updateDepartment };
+async function deleteDeparment(id) {
+  try {
+    const response = await fetch(`${apiUrl}/department/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: `);
+    }
+
+    return true; // Return a success indicator or any relevant data
+  } catch (error) {
+    console.error("Error deleting country:", error);
+    throw error;
+  }
+}
+
+export {
+  getAllDepartment,
+  addDepartment,
+  getdepartmentById,
+  updateDepartment,
+  deleteDeparment,
+};

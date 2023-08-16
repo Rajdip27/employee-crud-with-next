@@ -54,12 +54,12 @@ export default function Country() {
                 >
                   Edit
                 </Link>
-                <button
+                <a
                   className="btn btn-danger "
                   onClick={() => handleDelete(data.id)}
                 >
                   Delete
-                </button>
+                </a>
               </td>
             </tr>
           ))}

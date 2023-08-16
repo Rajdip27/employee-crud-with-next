@@ -1,4 +1,30 @@
+import { getAllCountry } from "@/services/apiService/country/country.service";
+import { getStateById } from "@/services/apiService/state/state.service";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
 const editState = () => {
+  const router = useRouter();
+  const id = router.query.edit;
+
+  const [data, setData] = useState();
+  const [country, setCountry] = useState([]);
+  useEffect(() => {
+    const getSelectedCountry = async () => {
+      const newData = await getStateById(id);
+      setData(newData);
+    };
+    const getData = async () => {
+      const state = await getAllCountry();
+      setCountry(state);
+    };
+
+    if (id != undefined) {
+      getSelectedCountry();
+      getData();
+    }
+  }, [id]);
+  console.log(data);
   return (
     <div className=" container col-6  mt-5 ">
       <form
@@ -14,12 +40,18 @@ const editState = () => {
             id=""
           >
             <option value="">-- Select Country --</option>
-            {state.map((data, index) => (
-              <option value={data.id} key={index}>
-                {" "}
-                {data.countryName}{" "}
-              </option>
-            ))}
+
+            {data != undefined &&
+              country.map((da, index) => (
+                <option
+                  value={da.id}
+                  selected={data != undefined && data.countryId == country.id}
+                  key={index}
+                >
+                  {" "}
+                  {da.countryName}{" "}
+                </option>
+              ))}
           </select>
         </div>
         <div className="mb-3">
@@ -28,6 +60,7 @@ const editState = () => {
             type="text"
             className="form-control"
             name="stateName"
+
             // onChange={(e) => handleChange(e)}
           />
         </div>
