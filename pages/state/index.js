@@ -12,6 +12,21 @@ const State = () => {
     getData();
   }, []);
   console.log(state);
+  const handleDelete = async () => {
+    const confirm = window.confirm("Are you sure to delete this country?");
+
+    if (confirm) {
+      try {
+        // await id;
+        // const updatedData = data.filter((item) => item.id !== id);
+        const updateData = await deleteState(id);
+
+        // setData(updateData);
+      } catch (error) {
+        console.error("Error deleting country:", error);
+      }
+    }
+  };
   return (
     <div className=" container mt-5 mb-5 ">
       <h4 className=" text-center text-success mt-3 ">State List</h4>
@@ -40,7 +55,12 @@ const State = () => {
                 >
                   Edit
                 </Link>
-                <button className="btn btn-danger">Delete</button>
+                <a
+                  onClick={() => handleDelete(data.id)}
+                  className="btn btn-danger"
+                >
+                  Delete
+                </a>
               </td>
             </tr>
           ))}

@@ -13,6 +13,7 @@ const getAllDepartment = async () => {
   }
 };
 const addDepartment = async (data) => {
+  console.log(data);
   try {
     const response = await fetch(`${apiUrl}/Department`, {
       method: "POST",

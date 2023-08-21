@@ -1,5 +1,8 @@
 import { getAllCountry } from "@/services/apiService/country/country.service";
-import { getStateById } from "@/services/apiService/state/state.service";
+import {
+  getStateById,
+  updateCity,
+} from "@/services/apiService/state/state.service";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -24,7 +27,25 @@ const editState = () => {
       getData();
     }
   }, [id]);
+
+  const handleSubmit = async () => {
+    e.preventDefault();
+
+    const addedCountry = await updateCity(id, data);
+    console.log(addedCountry);
+    router.push("/country"); // Use 'router' instead of 'useRouter'
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData({
+      id: data.id,
+      ...data,
+      [name]: value,
+    });
+  };
   console.log(data);
+
   return (
     <div className=" container col-6  mt-5 ">
       <form
@@ -36,8 +57,7 @@ const editState = () => {
           <select
             className=" form-control "
             name="countryId"
-            // onClick={(e) => handleChange(e)}
-            id=""
+            onChange={(e) => handleChange(e)}
           >
             <option value="">-- Select Country --</option>
 
@@ -45,7 +65,7 @@ const editState = () => {
               country.map((da, index) => (
                 <option
                   value={da.id}
-                  selected={data != undefined && data.countryId == country.id}
+                  selected={data != undefined && data.countryId == da.id}
                   key={index}
                 >
                   {" "}
@@ -60,8 +80,8 @@ const editState = () => {
             type="text"
             className="form-control"
             name="stateName"
-
-            // onChange={(e) => handleChange(e)}
+            value={data != undefined && data.stateName}
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <button type="submit" className="btn btn-primary">
