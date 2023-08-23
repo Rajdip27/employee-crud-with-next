@@ -63,10 +63,10 @@ async function deleteState(id) {
   }
 }
 
-async function updateCity(id, data) {
-  console.log(id, data);
+async function updateState(id, data) {
+  console.log(data);
   try {
-    const response = await fetch(`${apiUrl}/City/${id}`, {
+    const response = await fetch(`${apiUrl}/State/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -76,13 +76,11 @@ async function updateCity(id, data) {
 
     if (!response.ok) {
       const responseBody = await response.text();
-      // throw new Error(`Network response was not ok: ${response.status} - ${responseBody}`);
     }
-
     return await response.json();
   } catch (error) {
     console.error("Error updating data:", error);
     throw error;
   }
 }
-export { getAllState, addState, getStateById, deleteState, updateCity };
+export { getAllState, addState, getStateById, deleteState, updateState };

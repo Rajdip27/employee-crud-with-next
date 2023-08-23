@@ -2,6 +2,7 @@ import { getAllCountry } from "@/services/apiService/country/country.service";
 import {
   getStateById,
   updateCity,
+  updateState,
 } from "@/services/apiService/state/state.service";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -28,14 +29,13 @@ const editState = () => {
     }
   }, [id]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const addedCountry = await updateCity(id, data);
-    console.log(addedCountry);
-    router.push("/country"); // Use 'router' instead of 'useRouter'
+    const update = await updateState(id, data);
+    console.log(update);
+    router.push("/state"); // Use 'router' instead of 'useRouter'
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({
