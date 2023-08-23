@@ -1,25 +1,28 @@
-import { getAllState } from "@/services/apiService/state/state.service";
-import { useState } from "react";
+import {
+  deleteState,
+  getAllState,
+} from "@/services/apiService/state/state.service";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const State = () => {
   const [state, setState] = useState([]);
-  useState(() => {
+  useEffect(() => {
     const getData = async () => {
       const state = await getAllState();
       setState(state);
     };
     getData();
-  }, []);
-  console.log(state);
-  const handleDelete = async () => {
+  }, [state]);
+  const handleDelete = async (id) => {
     const confirm = window.confirm("Are you sure to delete this country?");
-
     if (confirm) {
       try {
         // await id;
         // const updatedData = data.filter((item) => item.id !== id);
-        const updateData = await deleteState(id);
+        // const updateData = await deleteState(id);
+        const deleteData = await deleteState(id);
+        console.log(deleteData);
 
         // setData(updateData);
       } catch (error) {
@@ -69,5 +72,4 @@ const State = () => {
     </div>
   );
 };
-
 export default State;

@@ -31,4 +31,21 @@ const addCity = async (data) => {
   }
 };
 
-export { getCities, addCity };
+async function deletCity(id) {
+  try {
+    const response = await fetch(`${apiUrl}/City/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: `);
+    }
+
+    return true; // Return a success indicator or any relevant data
+  } catch (error) {
+    console.error("Error deleting City:", error);
+    throw error;
+  }
+}
+
+export { getCities, addCity, deletCity };
