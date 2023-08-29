@@ -20,7 +20,7 @@ export default function Country() {
     if (confirm) {
       try {
         // await id;
-        // const updatedData = data.filter((item) => item.id !== id);
+        const updatedData = data.filter((item) => item.id !== id);
         const updateData = await deleteCountry(id);
         // setData(updateData);
       } catch (error) {

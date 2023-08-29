@@ -20,10 +20,11 @@ const getDepartment = () => {
     if (confirm) {
       try {
         // await id;
-        // const updatedData = data.filter((item) => item.id !== id);
+        const updatedData = data.filter((item) => item.id !== id);
         const updateData = await deleteDeparment(id);
-
-        // setData(updateData);
+        if (updateData) {
+          setData(updateData);
+        }
       } catch (error) {
         console.error("Error deleting country:", error);
       }
@@ -48,7 +49,7 @@ const getDepartment = () => {
         <tbody>
           {department.map((data, index) => (
             <tr key={index}>
-              <td>{index + 1}</td>
+              <td>{(index += 1)}</td>
               <td>{data.departmentName}</td>
               <td>
                 <Link

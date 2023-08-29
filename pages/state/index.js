@@ -19,12 +19,14 @@ const State = () => {
     if (confirm) {
       try {
         // await id;
-        // const updatedData = data.filter((item) => item.id !== id);
+        const updatedData = data.filter((item) => item.id !== id);
         // const updateData = await deleteState(id);
         const deleteData = await deleteState(id);
         console.log(deleteData);
 
-        // setData(updateData);
+        if (deleteData) {
+          setState(updatedData);
+        }
       } catch (error) {
         console.error("Error deleting country:", error);
       }
